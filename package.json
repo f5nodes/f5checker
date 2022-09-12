@@ -1,0 +1,28 @@
+{
+  "name": "f5checker",
+  "version": "1.0.0",
+  "description": "f5checker tool helps you monitor your server",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "github.com/f5nodes/f5checker"
+  },
+  "keywords": [
+    "f5checker",
+    "check server",
+    "monitor server",
+    "server tool"
+  ],
+  "author": "vasylcode <vasylcode@gmail.com>",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.1",
+    "shelljs": "^0.8.5"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.19"
+  }
+}
