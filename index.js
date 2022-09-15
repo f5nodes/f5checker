@@ -1,7 +1,7 @@
 const express = require('express');
 const app = express();
 
-const PORT = 5050;
+const PORT = process.env.PORT || 5050;
 
 app.get('/', (req, res) => {
 	res.send('F5Checker!');
@@ -9,7 +9,7 @@ app.get('/', (req, res) => {
 
 async function start() {
 	try {
-		app.listen(PORT, () => console.log('F5Checker started, port ' + PORT));
+		app.listen(PORT, () => console.log('F5Checker started on port ' + PORT));
 	} catch (error) {
 		console.log('Server Error:', error.message);
 		process.exit(1);
@@ -17,3 +17,5 @@ async function start() {
 }
 
 start();
+
+app.use('/info', require('./routes/info.routes'));
