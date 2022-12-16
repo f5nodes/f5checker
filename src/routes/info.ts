@@ -1,38 +1,20 @@
 import { Request, Response, Router } from 'express';
-import os from 'os'
-import axios from 'axios'
-import checkDiskSpace from 'check-disk-space';
+import { getServerInfo } from '../service/info';
+import { check } from '../service/checker';
+import { NodeNames } from '../service/checker/enums';
 
 const router = Router();
 
-function formatBytes(bytes: number, decimals = 2): string {
-	if (!+bytes) return '0 Bytes';
+router.get('/info/server', async (req: Request, res: Response) => {
+	res.send(await getServerInfo());
+});
 
-	const k = 1024;
-	const dm = decimals < 0 ? 0 : decimals;
-	const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
-
-	const i = Math.floor(Math.log(bytes) / Math.log(k));
-
-	return `${parseFloat((bytes / Math.pow(k, i)).toFixed(dm))} ${sizes[i]}`;
-}
-
-router.get('/simple', async (req: Request, res: Response) => {
-	let data = {
-		host: os.hostname(),
-		cpu: os.cpus().length,
-		ram: formatBytes(os.totalmem()),
-		disk: '',
-		location: '',
-	};
-
-	const disk = await checkDiskSpace('/')
-	data.disk = formatBytes(disk.size);
-
-	const {data: {countryName}} = await axios.get('https://freeipapi.com/api/json');
-	data.location = countryName;
-
-	res.status(200).send(data);
+router.get('/info/check-node', async (req: Request, res: Response) => {
+	// need to decide where we want to store nodeName.
+	// mb in query while send get request (I prefer this variant)
+	// mb in env
+	const nodeName = NodeNames.celestia;
+	res.send(await check(nodeName));
 });
 
 export default router;
