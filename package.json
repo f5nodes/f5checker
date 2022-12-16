@@ -2,9 +2,9 @@
   "name": "f5checker",
   "version": "1.0.0",
   "description": "f5checker tool helps you monitor your server",
-  "main": "index.js",
+  "main": "index.ts",
   "scripts": {
-    "start": "nodemon index.js"
+    "start": "nodemon index.ts"
   },
   "repository": {
     "type": "git",
@@ -19,13 +19,18 @@
   "author": "vasylcode <vasylcode@gmail.com>",
   "license": "ISC",
   "dependencies": {
-    "axios": "^1.2.1",
-    "check-disk-space": "^3.3.1",
-    "cors": "^2.8.5",
-    "express": "^4.18.1",
-    "shelljs": "^0.8.5"
+    "axios": "1.2.1",
+    "check-disk-space": "3.3.1",
+    "cors": "2.8.5",
+    "express": "4.18.1",
+    "shelljs": "0.8.5"
   },
   "devDependencies": {
-    "nodemon": "^2.0.19"
+    "@types/cors": "^2.8.13",
+    "@types/express": "^4.17.15",
+    "@types/node": "18.11.15",
+    "nodemon": "2.0.19",
+    "ts-node": "^10.9.1",
+    "typescript": "4.9.4"
   }
 }
