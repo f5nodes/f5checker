@@ -1,7 +1,13 @@
 export interface ServerInfo {
-  host: string,
+  hostname: string,
   cpu: number,
-  ram: string,
-  disk: string,
-  location: string,
+  uptime: string,
+  ram: Space
+  loadavg: number[],
+  disk: Space
+}
+
+export interface Space {
+  used: string,
+  total: string
 }

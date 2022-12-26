@@ -1,23 +1,38 @@
 import os from 'os';
-import checkDiskSpace from 'check-disk-space';
-import axios from 'axios';
-import { formatBytes } from './utils';
-import { ServerInfo } from './interfaces';
+import { ServerInfo, Space } from './interfaces';
+import { check as checkDiskUsage } from 'diskusage';
+import { convertToMb } from './utils';
+
+const getLoadAvg = (): number[] => {
+  const coresCount = os.cpus().length
+  return os.loadavg().map(item => Number(((item / coresCount) * 100).toFixed(2)))
+}
+
+const getRam = (): Space => {
+  const totalRAM = os.totalmem();
+  const freeRAM = os.freemem();
+  
+  return {
+    total: convertToMb(totalRAM),
+    used: convertToMb(totalRAM-freeRAM)
+  }
+}
+
+const getDisk = async (): Promise<Space> => {
+  const disk = await checkDiskUsage('/')
+  return {
+    total: convertToMb(disk.total),
+    used: convertToMb(disk.total - disk.free)
+  }
+}
 
 export async function getServerInfo(): Promise<ServerInfo> {
-  let data: ServerInfo = {
-    host: os.hostname(),
+  return {
+    hostname: os.hostname(),
+    uptime: new Date(os.uptime() * 1000).toISOString().slice(11, 19),
+    loadavg: getLoadAvg(),
+    ram: getRam(),
     cpu: os.cpus().length,
-    ram: formatBytes(os.totalmem()),
-    disk: '',
-    location: '',
+    disk: await getDisk()
   };
-
-  const disk = await checkDiskSpace('/')
-  data.disk = formatBytes(disk.size);
-
-  const {data: {countryName}} = await axios.get('https://freeipapi.com/api/json');
-  data.location = countryName;
-  
-  return data;
 }

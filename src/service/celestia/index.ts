@@ -6,7 +6,7 @@ class CelestiaChecker implements Checker {
   }
 
   async getStatus(): Promise<any> {
-
+    
   }
 }
 

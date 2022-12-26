@@ -6,7 +6,7 @@ class MassaChecker implements Checker {
   }
 
   async getStatus(): Promise<any> {
-
+    
   }
 }
 
