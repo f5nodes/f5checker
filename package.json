@@ -19,8 +19,8 @@
   "author": "vasylcode <vasylcode@gmail.com>, yehorzvuzdetskyi <egorzvuzdetskyi@gmail.com>",
   "license": "ISC",
   "dependencies": {
+    "check-disk-space": "3.3.1",
     "cors": "2.8.5",
-    "diskusage": "1.1.3",
     "express": "4.18.1",
     "shelljs": "0.8.5"
   },
