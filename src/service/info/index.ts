@@ -1,6 +1,6 @@
 import os from 'os';
 import { ServerInfo, Space } from './interfaces';
-import { check as checkDiskUsage } from 'diskusage';
+import checkDiskSpace from 'check-disk-space';
 import { formatBytes } from './utils';
 
 const getLoadAvg = (): number[] => {
@@ -19,10 +19,10 @@ const getRam = (): Space => {
 }
 
 const getDisk = async (): Promise<Space> => {
-  const disk = await checkDiskUsage('/')
+  const disk = await checkDiskSpace('/')
   return {
-    total: formatBytes(disk.total),
-    used: formatBytes(disk.total - disk.free)
+    total: formatBytes(disk.size),
+    used: formatBytes(disk.size - disk.free)
   }
 }
 
