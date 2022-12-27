@@ -1,7 +1,7 @@
 import os from 'os';
 import { ServerInfo, Space } from './interfaces';
 import { check as checkDiskUsage } from 'diskusage';
-import { convertToMb } from './utils';
+import { formatBytes } from './utils';
 
 const getLoadAvg = (): number[] => {
   const coresCount = os.cpus().length
@@ -13,23 +13,30 @@ const getRam = (): Space => {
   const freeRAM = os.freemem();
   
   return {
-    total: convertToMb(totalRAM),
-    used: convertToMb(totalRAM-freeRAM)
+    total: formatBytes(totalRAM),
+    used: formatBytes(totalRAM-freeRAM)
   }
 }
 
 const getDisk = async (): Promise<Space> => {
   const disk = await checkDiskUsage('/')
   return {
-    total: convertToMb(disk.total),
-    used: convertToMb(disk.total - disk.free)
+    total: formatBytes(disk.total),
+    used: formatBytes(disk.total - disk.free)
   }
+}
+
+const getUptime = (): string => {
+  const date = new Date(os.uptime() * 1000)
+  const days = date.getDay()
+  const hoursAndSeconds = date.toISOString().slice(11, 16).split(':')
+  return `${days}d ${hoursAndSeconds[0]}h ${hoursAndSeconds[1]}m`
 }
 
 export async function getServerInfo(): Promise<ServerInfo> {
   return {
     hostname: os.hostname(),
-    uptime: new Date(os.uptime() * 1000).toISOString().slice(11, 19),
+    uptime: getUptime(),
     loadavg: getLoadAvg(),
     ram: getRam(),
     cpu: os.cpus().length,
