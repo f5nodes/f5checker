@@ -3,6 +3,7 @@ import { NodeNames } from './enums';
 import celestiaChecker from '../celestia';
 import starknetChecker from '../starknet';
 import massaChecker from '../massa';
+import { MassaInfoParams } from '../massa/interfaces';
 
 const checkerMaps: CheckerMap = {
   [NodeNames.celestia]: celestiaChecker,
@@ -10,11 +11,11 @@ const checkerMaps: CheckerMap = {
   [NodeNames.massa]: massaChecker,
 }
 
-export async function check(nodeName: NodeNames): Promise<any> {
+export async function check(nodeName: NodeNames, infoParams?: MassaInfoParams): Promise<any> {
   const checker = checkerMaps[nodeName];
   
   return {
-    status: await checker.getStatus(),
+    info: await checker.getInfo(infoParams),
     logs: await checker.getLogs(),
   }
 }

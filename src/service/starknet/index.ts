@@ -5,7 +5,7 @@ class StarknetChecker implements Checker {
     
   }
 
-  async getStatus(): Promise<any> {
+  async getInfo(): Promise<any> {
 
   }
 }
