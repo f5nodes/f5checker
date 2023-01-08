@@ -1,10 +1,14 @@
 import { NextFunction, Request, Response, Router } from 'express';
-import { getServerInfo } from '../../services/info';
+import { getServerInfo, getServerSimpleInfo } from '../../services/info';
 import { check } from '../../services/checker';
 import { NodeInfo } from './interfaces';
 import { validateNodeInfo } from '../../middlewares/checkNode';
 
 const router = Router();
+
+router.get('/info/simple', async (req: Request, res: Response) => {
+	res.send(await getServerSimpleInfo());
+});
 
 router.get('/info/server', async (req: Request, res: Response, next: NextFunction) => {
 	try {
