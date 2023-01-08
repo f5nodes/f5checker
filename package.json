@@ -19,7 +19,7 @@
   "author": "vasylcode <vasylcode@gmail.com>, yehorzvuzdetskyi <egorzvuzdetskyi@gmail.com>",
   "license": "ISC",
   "dependencies": {
-    "axios": "1.2.1",
+    "axios": "^1.2.2",
     "check-disk-space": "3.3.1",
     "cors": "2.8.5",
     "express": "4.18.1",
