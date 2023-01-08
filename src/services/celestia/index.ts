@@ -22,8 +22,8 @@ class CelestiaChecker implements Checker {
   async getInfo(): Promise<any> {
     const celestaiStatus = await get<CelestiaInfoResponse>('http://localhost:26657/status');
     verifyResponse(celestaiStatus);
-    const {data: {result}} = celestaiStatus
-    console.log(result);
+    const {data: {result: {node_info}}} = celestaiStatus
+    console.log(node_info);
     // const {data: {result: {node_info: {sync_info:syncInfo}}}} = celestaiStatus
     // return {
     //   latestBlockHeight: syncInfo.latest_block_height,
