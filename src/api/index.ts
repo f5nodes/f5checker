@@ -25,3 +25,17 @@ export const post = async <T>(url: string, body: Record<string, unknown>): Promi
     }
   }
 }
+
+export const get = async <T>(url: string): Promise<ApiResponse<T>> => {
+  try {
+    const {data} = await axios.get(url);
+    return {
+      data, isOk: true
+    }
+  } catch (e: any) {
+    return {
+      errorMessage: e.message,
+      isOk: false,
+    }
+  }
+}
