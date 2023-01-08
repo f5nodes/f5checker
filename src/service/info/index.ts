@@ -45,10 +45,13 @@ const getDiskTotal = async (): Promise<string> => {
 };
 
 const getUptime = (): string => {
-	const date = new Date(os.uptime() * 1000);
-	const days = date.getDay();
-	const hoursAndSeconds = date.toISOString().slice(11, 16).split(':');
-	return `${days}d ${hoursAndSeconds[0]}h ${hoursAndSeconds[1]}m`;
+	const uptime = os.uptime();
+	const [days, hours, minutes] = [
+		Math.floor(uptime / (60 * 60 * 24)),
+		Math.floor((uptime % (60 * 60 * 24)) / (60 * 60)),
+		Math.floor((uptime % (60 * 60)) / 60),
+	];
+	return `${days}d ${hours}h ${minutes}m`;
 };
 
 export async function getServerSimpleInfo(): Promise<SimpleInfo> {
