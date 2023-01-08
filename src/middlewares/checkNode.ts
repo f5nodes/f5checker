@@ -4,8 +4,7 @@ import { NodeNames } from '../services/checker/enums';
 import { validationError } from '../errors';
 
 export const validateNodeInfo = (req: Request<unknown, unknown, NodeInfoOptional, unknown>, res: Response, next: NextFunction) => {
-  const {nodeName, payload} = req.body
-  console.log(req.body);
+  const {nodeName} = req.body
 
   if (!nodeName) {
     throw validationError('nodeName should be defined')
@@ -13,10 +12,6 @@ export const validateNodeInfo = (req: Request<unknown, unknown, NodeInfoOptional
 
   if (!(nodeName in NodeNames)) {
     throw validationError(`Can not find node for ${nodeName}`)
-  }
-  
-  if (!payload) {
-    throw validationError(`Payload should be defined for node info`)
   }
   
   next();

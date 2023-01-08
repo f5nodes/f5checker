@@ -3,8 +3,7 @@ import cors from 'cors'
 import routes from './src/routes'
 import { normalizeError } from './src/errors/normalizeError';
 import httpStatus from 'http-status';
-import bodyParser from 'body-parser';
-
+import celestiaChecker from './src/services/celestia'
 const app = express()
 
 const PORT = process.env.PORT || 5050;
@@ -19,6 +18,7 @@ app.get('/', (req, res) => {
 async function start() {
 	try {
 		app.listen(PORT, () => console.log('F5Checker started on port ' + PORT));
+		console.log(await celestiaChecker.getInfo());
 	} catch (error: any) {
 		console.log('Server Error:', error.message);
 		process.exit(1);
