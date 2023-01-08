@@ -1,8 +1,8 @@
 export interface SimpleInfo {
 	hostname: string;
 	cpu: number;
-	ram: Space;
-	disk: Space;
+	ram: string;
+	disk: string;
 	location: string;
 }
 

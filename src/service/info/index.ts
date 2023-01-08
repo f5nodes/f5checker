@@ -23,8 +23,12 @@ const getRam = (decimals = 2): Space => {
 	return {
 		total: formatBytes(totalRAM, decimals),
 		used: formatBytes(totalRAM - freeRAM, decimals),
-		free: formatBytes(freeRAM),
+		free: formatBytes(freeRAM, decimals),
 	};
+};
+
+const getRamTotal = async (): Promise<string> => {
+	return (await getRam(0)).total;
 };
 
 const getDisk = async (decimals = 2): Promise<Space> => {
@@ -32,8 +36,12 @@ const getDisk = async (decimals = 2): Promise<Space> => {
 	return {
 		total: formatBytes(disk.size, decimals),
 		used: formatBytes(disk.size - disk.free, decimals),
-		free: formatBytes(disk.free),
+		free: formatBytes(disk.free, decimals),
 	};
+};
+
+const getDiskTotal = async (): Promise<string> => {
+	return (await getDisk(0)).total;
 };
 
 const getUptime = (): string => {
@@ -47,8 +55,8 @@ export async function getServerSimpleInfo(): Promise<SimpleInfo> {
 	return {
 		hostname: os.hostname(),
 		cpu: os.cpus().length,
-		ram: getRam(0),
-		disk: await getDisk(0),
+		ram: await getRamTotal(),
+		disk: await getDiskTotal(),
 		location: await getLocation(),
 	};
 }
