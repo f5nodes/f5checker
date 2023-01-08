@@ -18,7 +18,7 @@ app.get('/', (req, res) => {
 async function start() {
 	try {
 		app.listen(PORT, () => console.log('F5Checker started on port ' + PORT));
-		console.log(await celestiaChecker.getInfo());
+		console.log(JSON.stringify(await celestiaChecker.getInfo(), undefined, 4));
 	} catch (error: any) {
 		console.log('Server Error:', error.message);
 		process.exit(1);
