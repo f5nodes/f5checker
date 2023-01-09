@@ -17,7 +17,8 @@ export interface ServerInfo {
 }
 
 export interface Space {
-	used: string;
 	total: string;
+	used: string;
+	usedPart: number;
 	free: string;
 }

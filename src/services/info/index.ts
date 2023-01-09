@@ -23,6 +23,7 @@ const getRam = (decimals = 2): Space => {
 	return {
 		total: formatBytes(totalRAM, decimals),
 		used: formatBytes(totalRAM - freeRAM, decimals),
+		usedPart: parseFloat((((totalRAM - freeRAM) / totalRAM) * 100).toFixed(0)),
 		free: formatBytes(freeRAM, decimals),
 	};
 };
@@ -36,6 +37,7 @@ const getDisk = async (decimals = 2): Promise<Space> => {
 	return {
 		total: formatBytes(disk.size, decimals),
 		used: formatBytes(disk.size - disk.free, decimals),
+		usedPart: parseFloat((((disk.size - disk.free) / disk.size) * 100).toFixed(0)),
 		free: formatBytes(disk.free, decimals),
 	};
 };
