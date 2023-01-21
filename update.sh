@@ -4,7 +4,7 @@ if ! command -v curl &> /dev/null && ! command -v git &> /dev/null; then
     sudo apt install -y curl git
 fi
 
-current_version=$(node -e "console.log(require('../package.json').version)")
+current_version=$(node -e "console.log(require('./package.json').version)")
 latest_version=$(curl -s "https://api.f5checker.com/version")
 echo "[$(date)] Current v$current_version, latest - v$latest_version"
 
