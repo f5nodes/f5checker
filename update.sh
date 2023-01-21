@@ -16,5 +16,6 @@ while true; do
         pm2 restart f5checker
     fi
 
-    sleep 36000
+    # every 6 hours
+    sleep 21600
 done
