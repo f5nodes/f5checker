@@ -5,7 +5,7 @@ if ! command -v curl &> /dev/null && ! command -v git &> /dev/null; then
 fi
 
 current_version=$(node -e "console.log(require('../package.json').version)")
-latest_version=$(curl -s "http://api.f5checker.com/version")
+latest_version=$(curl -s "https://api.f5checker.com/version")
 echo "[$(date)] Current v$current_version, latest - v$latest_version"
 
 if [ "$latest_version" != "$current_version" ]; then
