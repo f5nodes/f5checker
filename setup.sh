@@ -3,6 +3,7 @@
 . <(wget -qO- https://raw.githubusercontent.com/f5nodes/root/main/install/node.sh)
 
 npm install pm2 -g
+pm2 install typescript
 git clone https://github.com/f5nodes/f5checker.git
 cd f5checker
 npm install
